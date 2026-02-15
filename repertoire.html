@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Repertoire – John Fraize</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: url('JF-8.jpg') center center / cover no-repeat fixed;
+      color: #fff;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 0;
+    }
+    .content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      width: 100%;
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+    section {
+      padding: 1.5rem;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 8px;
+      backdrop-filter: blur(8px);
+      text-align: left;
+    }
+    h1 {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 600;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+    .repertoire-intro {
+      text-align: center;
+      margin-bottom: 1rem;
+      opacity: 0.95;
+    }
+    .repertoire-table-wrap {
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+    .repertoire-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    .repertoire-table th,
+    .repertoire-table td {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .repertoire-table th {
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .repertoire-table td:focus {
+      outline: 2px solid rgba(255, 255, 255, 0.8);
+      outline-offset: -1px;
+    }
+    .repertoire-loading,
+    .repertoire-error {
+      text-align: center;
+      padding: 1rem;
+      opacity: 0.9;
+    }
+    .cta {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 1rem;
+    }
+    .cta a {
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .cta a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <a href="index.html" class="back-link">← Back to home</a>
+
+    <section>
+      <h1>Repertoire</h1>
+      <p class="repertoire-intro">The Beatles, Rolling Stones, Grateful Dead, Bob Dylan, James Taylor, and classic rock. Use Tab to move through the list.</p>
+      <div id="repertoire-container">
+        <p class="repertoire-loading" aria-live="polite">Loading repertoire…</p>
+      </div>
+      <p class="cta">More tunes in the book — <a href="sms:5088684846">text</a> to request a full setlist.</p>
+    </section>
+
+    <script>
+      (function () {
+        var container = document.getElementById('repertoire-container');
+
+        function parseCSV(text) {
+          var rows = [];
+          var lines = text.split(/\r?\n/).filter(function (line) { return line.trim(); });
+          for (var i = 0; i < lines.length; i++) {
+            var line = lines[i];
+            var cells = [];
+            var cell = '';
+            var inQuotes = false;
+            for (var j = 0; j < line.length; j++) {
+              var ch = line[j];
+              if (ch === '"') {
+                inQuotes = !inQuotes;
+              } else if ((ch === ',' && !inQuotes) || (ch === '\n' && !inQuotes)) {
+                cells.push(cell.trim());
+                cell = '';
+              } else {
+                cell += ch;
+              }
+            }
+            cells.push(cell.trim());
+            rows.push(cells);
+          }
+          return rows;
+        }
+
+        function buildTable(rows) {
+          if (rows.length < 2) return null;
+          var headers = rows[0];
+          var table = document.createElement('table');
+          table.className = 'repertoire-table';
+          table.setAttribute('role', 'grid');
+          var thead = document.createElement('thead');
+          var tr = document.createElement('tr');
+          headers.forEach(function (h) {
+            var th = document.createElement('th');
+            th.textContent = h;
+            th.setAttribute('tabindex', '0');
+            tr.appendChild(th);
+          });
+          thead.appendChild(tr);
+          table.appendChild(thead);
+          var tbody = document.createElement('tbody');
+          for (var i = 1; i < rows.length; i++) {
+            var row = rows[i];
+            var rowTr = document.createElement('tr');
+            row.forEach(function (cellText) {
+              var td = document.createElement('td');
+              td.textContent = cellText;
+              td.setAttribute('tabindex', '0');
+              rowTr.appendChild(td);
+            });
+            tbody.appendChild(rowTr);
+          }
+          table.appendChild(tbody);
+          return table;
+        }
+
+        fetch('repertoire.csv')
+          .then(function (res) {
+            if (!res.ok) throw new Error('Could not load repertoire');
+            return res.text();
+          })
+          .then(function (text) {
+            var rows = parseCSV(text);
+            var table = buildTable(rows);
+            container.innerHTML = '';
+            if (table) {
+              var wrap = document.createElement('div');
+              wrap.className = 'repertoire-table-wrap';
+              wrap.appendChild(table);
+              container.appendChild(wrap);
+            } else {
+              container.innerHTML = '<p class="repertoire-error">No repertoire data.</p>';
+            }
+          })
+          .catch(function () {
+            container.innerHTML = '<p class="repertoire-error">Repertoire list could not be loaded.</p>';
+          });
+      })();
+    </script>
+  </div>
+</body>
+</html>
