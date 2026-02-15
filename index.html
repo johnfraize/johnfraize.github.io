@@ -1,7 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>John Fraize - Music for the 50s, 60s, 70s and Beyond</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: url('JF-8.jpg') center center / cover no-repeat fixed;
+      color: #fff;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 0;
+    }
+    .content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+    }
+    h1 {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 600;
+      line-height: 1.3;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+      margin-bottom: 1.5rem;
+    }
+    .booking {
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+      letter-spacing: 0.02em;
+    }
+    .booking a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .booking a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
 <body>
-  <h1>Welcome to the contruction of the John Fraize Music site</h1>
-  <p>Welcome to my GitHub Pages site! - woo hoo</p>
+  <div class="content">
+    <h1>John Fraize – plays music for the 50s, 60s, 70s and beyond</h1>
+    <p class="booking">Text <a href="sms:5088684846">508 868 4846</a> for booking</p>
+  </div>
 </body>
 </html>
