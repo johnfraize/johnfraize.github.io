@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>John Fraize - Music for the 50s, 60s, 70s and Beyond</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -19,7 +22,7 @@
       background: url('JF-8.jpg') center center / cover no-repeat fixed;
       color: #fff;
       text-align: center;
-      padding: 2rem;
+      padding: 2rem 1.5rem;
       position: relative;
     }
     body::before {
@@ -29,58 +32,90 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.4);
+      background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.55) 100%);
       z-index: 0;
     }
     .content {
       position: relative;
       z-index: 1;
-      max-width: 800px;
+      max-width: 720px;
+      width: 100%;
+    }
+    .hero {
+      margin-bottom: 2.5rem;
+    }
+    .hero .tagline {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.9;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+      margin-bottom: 0.5rem;
     }
     h1 {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(2rem, 5vw, 3.25rem);
       font-weight: 600;
-      line-height: 1.3;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
-      margin-bottom: 1.5rem;
-    }
-    .booking {
-      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+      line-height: 1.2;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+      margin-bottom: 1.25rem;
       letter-spacing: 0.02em;
     }
-    .booking a {
+    .hero-sub {
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      opacity: 0.95;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+      margin-bottom: 1.75rem;
+    }
+    .booking-btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: rgba(255, 255, 255, 0.15);
+      border: 2px solid rgba(255, 255, 255, 0.6);
+      border-radius: 999px;
       color: #fff;
       text-decoration: none;
       font-weight: 600;
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
+      transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
     }
-    .booking a:hover {
-      text-decoration: underline;
+    .booking-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     }
     section {
-      margin-top: 3rem;
-      padding: 1.5rem;
-      background: rgba(0, 0, 0, 0.5);
-      border-radius: 8px;
-      backdrop-filter: blur(8px);
+      margin-top: 0;
+      padding: 2rem 1.75rem;
+      background: rgba(0, 0, 0, 0.45);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
       text-align: left;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
     }
     section h2 {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 1.35rem;
-      margin-bottom: 1rem;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
       text-align: center;
       text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+      letter-spacing: 0.05em;
     }
     .rates {
       list-style: none;
     }
     .rates li {
-      padding: 0.5rem 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 0.65rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
       display: flex;
       justify-content: space-between;
+      align-items: baseline;
       gap: 1rem;
       flex-wrap: wrap;
     }
@@ -89,32 +124,54 @@
     }
     .rates .label {
       font-weight: 500;
+      font-size: 1.05rem;
+    }
+    .rates .price {
+      font-weight: 600;
+      font-size: 1.2rem;
+      letter-spacing: 0.02em;
     }
     .cta {
       text-align: center;
-      margin-top: 2rem;
-      font-size: 1.1rem;
+      margin-top: 1.75rem;
+      font-size: 1.05rem;
     }
     .cta a {
       color: #fff;
       font-weight: 600;
+      text-decoration: none;
+    }
+    .cta a:hover {
+      text-decoration: underline;
+    }
+    .cta-repertoire {
+      margin-top: 0.75rem;
+    }
+    .cta-repertoire a {
+      opacity: 0.9;
+      font-weight: 500;
+      font-size: 0.95rem;
     }
   </style>
 </head>
 <body>
   <div class="content">
-    <h1>John Fraize – plays music for the 50s, 60s, 70s and beyond</h1>
-    <p class="booking">Text <a href="sms:5088684846">508 868 4846</a> for booking</p>
+    <header class="hero">
+      <p class="tagline">Live music for your venue</p>
+      <h1>John Fraize</h1>
+      <p class="hero-sub">50s, 60s, 70s and beyond</p>
+      <a href="sms:5088684846" class="booking-btn">Text 508 868 4846 to book</a>
+    </header>
 
     <section>
       <h2>Rates</h2>
       <ul class="rates">
-        <li><span class="label">2 hours solo</span><span>$120</span></li>
-        <li><span class="label">2 hours duo</span><span>$180</span></li>
-        <li><span class="label">2 hours band</span><span>$300</span></li>
+        <li><span class="label">2 hours solo</span><span class="price">$120</span></li>
+        <li><span class="label">2 hours duo</span><span class="price">$180</span></li>
+        <li><span class="label">2 hours band</span><span class="price">$300</span></li>
       </ul>
       <p class="cta">Text <a href="sms:5088684846">508 868 4846</a> to book or ask about your event</p>
-      <p class="cta" style="margin-top: 0.5rem;"><a href="repertoire.html">View full repertoire →</a></p>
+      <p class="cta cta-repertoire"><a href="repertoire.html">View full repertoire →</a></p>
     </section>
   </div>
 </body>
