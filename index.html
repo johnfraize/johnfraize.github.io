@@ -23,7 +23,34 @@
       color: #fff;
       text-align: center;
       padding: 2rem 1.5rem;
+      padding-top: 3.5rem;
       position: relative;
+    }
+    .top-tabs {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      gap: 0.25rem;
+      padding: 0.5rem 1rem;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .top-tabs a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+    .top-tabs a:hover {
+      background: rgba(255, 255, 255, 0.15);
     }
     body::before {
       content: '';
@@ -155,6 +182,13 @@
   </style>
 </head>
 <body>
+  <nav class="top-tabs">
+    <a href="index.html">Home</a>
+    <a href="rates.html">Rates</a>
+    <a href="repertoire.html">Repertoire</a>
+    <a href="performances.html">Performances</a>
+  </nav>
+
   <div class="content">
     <header class="hero">
       <p class="tagline">Live music for your venue</p>
@@ -164,15 +198,7 @@
     </header>
 
     <section>
-      <h2>Rates</h2>
-      <ul class="rates">
-        <li><span class="label">2 hours solo</span><span class="price">$120</span></li>
-        <li><span class="label">2 hours duo</span><span class="price">$180</span></li>
-        <li><span class="label">2 hours band</span><span class="price">$300</span></li>
-      </ul>
       <p class="cta">Text <a href="sms:5088684846">508 868 4846</a> to book or ask about your event</p>
-      <p class="cta cta-repertoire"><a href="repertoire.html">View full repertoire →</a></p>
-      <p class="cta cta-repertoire"><a href="performances.html">Performance links →</a></p>
     </section>
   </div>
 </body>

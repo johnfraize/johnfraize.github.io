@@ -20,7 +20,37 @@
       color: #fff;
       text-align: center;
       padding: 2rem;
+      padding-top: 3.5rem;
       position: relative;
+    }
+    .top-tabs {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      gap: 0.25rem;
+      padding: 0.5rem 1rem;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .top-tabs a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+    .top-tabs a:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .top-tabs a.active {
+      background: rgba(255, 255, 255, 0.2);
     }
     body::before {
       content: '';
@@ -113,9 +143,14 @@
   </style>
 </head>
 <body>
-  <div class="content">
-    <a href="index.html" class="back-link">← Back to home</a>
+  <nav class="top-tabs">
+    <a href="index.html">Home</a>
+    <a href="rates.html">Rates</a>
+    <a href="repertoire.html" class="active">Repertoire</a>
+    <a href="performances.html">Performances</a>
+  </nav>
 
+  <div class="content">
     <section>
       <h1>Repertoire</h1>
       <p class="repertoire-intro">The Beatles, Rolling Stones, Grateful Dead, Bob Dylan, James Taylor, and classic rock. Use Tab to move through the list.</p>
