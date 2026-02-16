@@ -160,9 +160,51 @@
       <p class="cta">More tunes in the book — <a href="sms:5088684846">text</a> to request a full setlist.</p>
     </section>
 
+    <script type="text/csv" id="repertoire-csv">Artist,Song
+The Beatles,Hey Jude
+The Beatles,Let It Be
+The Beatles,Hide your love away
+The Beatles,Get Back
+The Beatles,Here Comes the Sun
+Rolling Stones,Wild Horses
+Rolling Stones,You Can't Always Get What You Want
+Grateful Dead,Friend of the Devil
+Grateful Dead,Ripple
+Bob Dylan,Like a Rolling Stone
+Bob Dylan,Buckets of Rain
+Bob Dylan,Knockin' on Heaven's Door
+Bob Dylan,Tangled Up in Blue
+Bob Dylan,Shelter from the Storm
+Bob Dylan,"Don't Think Twice, It's All Right"
+Bob Dylan,Mr. Tambourine Man
+ELP, Lucky Man
+James Taylor,Fire and Rain
+James Taylor,You've Got a Friend
+James Taylor,You can close your eyes
+Classic Rock,Take It Easy (Eagles)
+Neal Diamond,Red Red Wine
+Neal Diamond,Im a Believer
+Neal Diamond,Sweet Caroline
+Neal Diamond,Solitary Man
+CCR,"Proud Mary"
+CCR,"Lodi"
+CCR,"Bad Moon Risin"
+Traffic,"Feeling allright"
+Don McLean,"American Pie"
+Chuck Berry, "Jonny B. Goode"
+Eagles, "Take it Easy"
+Eagles, "Peaceful easy feeling"
+Eagles, "Already Gone"
+Maxine Nightingale,"Right Back Where We Started From"
+The Rascals, "Good Lovin"
+Marshall Tucker Band,"Can't You See"
+Marshall Tucker Band,"Fire On the Mountain"
+Traffic, "Feeling Alright"
+</script>
     <script>
       (function () {
         var container = document.getElementById('repertoire-container');
+        var csvEl = document.getElementById('repertoire-csv');
 
         function parseCSV(text) {
           var rows = [];
@@ -221,27 +263,33 @@
           return table;
         }
 
-        fetch('repertoire.csv')
-          .then(function (res) {
-            if (!res.ok) throw new Error('Could not load repertoire');
-            return res.text();
-          })
-          .then(function (text) {
-            var rows = parseCSV(text);
-            var table = buildTable(rows);
-            container.innerHTML = '';
-            if (table) {
-              var wrap = document.createElement('div');
-              wrap.className = 'repertoire-table-wrap';
-              wrap.appendChild(table);
-              container.appendChild(wrap);
-            } else {
-              container.innerHTML = '<p class="repertoire-error">No repertoire data.</p>';
-            }
-          })
-          .catch(function () {
-            container.innerHTML = '<p class="repertoire-error">Repertoire list could not be loaded.</p>';
-          });
+        function renderRepertoire(text) {
+          var rows = parseCSV(text);
+          var table = buildTable(rows);
+          container.innerHTML = '';
+          if (table) {
+            var wrap = document.createElement('div');
+            wrap.className = 'repertoire-table-wrap';
+            wrap.appendChild(table);
+            container.appendChild(wrap);
+          } else {
+            container.innerHTML = '<p class="repertoire-error">No repertoire data.</p>';
+          }
+        }
+
+        if (csvEl && csvEl.textContent) {
+          renderRepertoire(csvEl.textContent.trim());
+        } else {
+          fetch('repertoire.csv')
+            .then(function (res) {
+              if (!res.ok) throw new Error('Could not load repertoire');
+              return res.text();
+            })
+            .then(renderRepertoire)
+            .catch(function () {
+              container.innerHTML = '<p class="repertoire-error">Repertoire list could not be loaded.</p>';
+            });
+        }
       })();
     </script>
   </div>
