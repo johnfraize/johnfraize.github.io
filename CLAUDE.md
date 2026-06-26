@@ -26,6 +26,9 @@ A static personal/booking website for John Fraize (musician) served by GitHub Pa
 
 To edit the song list, change the inline `<script type="text/csv">` block in `repertoire.html`. Keep `repertoire.csv` in sync if you want the fallback accurate. The parser handles quoted fields (use quotes around songs containing commas).
 
-## Resume
+## Resume (moved out)
 
-`resume/` holds the same résumé in three formats: `john_fraize_resume.md` (source), `.html`, and `.pdf`. Edit the Markdown as the source of truth, then regenerate/update the HTML and PDF to match.
+Résumé and cover-letter data used to live in `resume/` but has been moved to a
+separate **private** repository (`resume-private`) so it is not served on this
+public site. Do not re-add résumé, cover-letter, or other personal/sensitive
+documents to this repo.
